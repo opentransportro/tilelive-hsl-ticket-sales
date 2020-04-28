@@ -21,7 +21,7 @@ const getTileIndex = (url, callback) => {
 
 class GeoJSONSource {
   constructor(uri, callback){
-    getTileIndex("http://data-hslhrt.opendata.arcgis.com/datasets/21918372164d410683f03925e4441598_0.geojson", (err, tileIndex) => {
+    getTileIndex("https://data-hslhrt.opendata.arcgis.com/datasets/727c6618a0814f8ba21bb00c9cb34019_0.geojson", (err, tileIndex) => {
       if (err){
         callback(err);
         return;
@@ -37,7 +37,7 @@ class GeoJSONSource {
     if (tile === null){
       tile = {features: []}
     }
-    
+
     const data = Buffer.from(vtPbf.fromGeojsonVt({'ticket-sales': tile}));
 
     zlib.gzip(data, function (err, buffer) {
