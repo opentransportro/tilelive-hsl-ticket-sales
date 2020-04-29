@@ -21,7 +21,7 @@ const getTileIndex = (url, callback) => {
 
 class GeoJSONSource {
   constructor(uri, callback){
-    getTileIndex("https://hslstoragekarttatuotanto.blob.core.windows.net/map-server-legacy-data/21918372164d410683f03925e4441598_0.geojson.json", (err, tileIndex) => {
+    getTileIndex("https://hslstoragekarttatuotanto.blob.core.windows.net/map-server-legacy-data/21918372164d410683f03925e4441598_0.geojson", (err, tileIndex) => {
       if (err){
         callback(err);
         return;
