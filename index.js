@@ -21,7 +21,7 @@ const getTileIndex = (url, callback) => {
 
 class GeoJSONSource {
   constructor(uri, callback){
-    getTileIndex("http://data-hslhrt.opendata.arcgis.com/datasets/21918372164d410683f03925e4441598_0.geojson", (err, tileIndex) => {
+    getTileIndex("https://hslstoragekarttatuotanto.blob.core.windows.net/map-server-legacy-data/21918372164d410683f03925e4441598_0.geojson.json", (err, tileIndex) => {
       if (err){
         callback(err);
         return;
@@ -37,7 +37,7 @@ class GeoJSONSource {
     if (tile === null){
       tile = {features: []}
     }
-    
+
     const data = Buffer.from(vtPbf.fromGeojsonVt({'ticket-sales': tile}));
 
     zlib.gzip(data, function (err, buffer) {
