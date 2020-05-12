@@ -3,25 +3,30 @@ const geojsonVt = require('geojson-vt');
 const vtPbf = require('vt-pbf');
 const request = require('requestretry');
 const zlib = require('zlib');
+// Use static azure blob mirror fot TICKET_SALES_SOURCE until ArcGIS Online gets new dataset with a new schema
+// "https://data-hslhrt.opendata.arcgis.com/datasets/727c6618a0814f8ba21bb00c9cb34019_0.geojson"
+const TICKET_SALES_SOURCE = "https://hslstoragekarttatuotanto.blob.core.windows.net/map-server-legacy-data/727c6618a0814f8ba21bb00c9cb34019_0.geojson"
 
 const getTileIndex = (url, callback) => {
   request({
     url: url,
     maxAttempts: 20,
     retryDelay: 30000,
+    followAllRedirects: true,
     retryStrategy: (err, response) => (request.RetryStrategies.HTTPOrNetworkError(err, response) || (response && 202 === response.statusCode))
   }, function (err, res, body){
     if (err){
       callback(err);
       return;
     }
+    console.log("ticket sales points loaded from: ", TICKET_SALES_SOURCE)
     callback(null, geojsonVt(JSON.parse(body), {maxZoom: 20})); //TODO: this should be configurable)
   })
 }
 
 class GeoJSONSource {
   constructor(uri, callback){
-    getTileIndex("https://hslstoragekarttatuotanto.blob.core.windows.net/map-server-legacy-data/21918372164d410683f03925e4441598_0.geojson", (err, tileIndex) => {
+    getTileIndex(TICKET_SALES_SOURCE, (err, tileIndex) => {
       if (err){
         callback(err);
         return;
