@@ -3,9 +3,8 @@ const geojsonVt = require('geojson-vt');
 const vtPbf = require('vt-pbf');
 const request = require('requestretry');
 const zlib = require('zlib');
-// Use static azure blob mirror fot TICKET_SALES_SOURCE until ArcGIS Online gets new dataset with a new schema
-// "https://data-hslhrt.opendata.arcgis.com/datasets/727c6618a0814f8ba21bb00c9cb34019_0.geojson"
-const TICKET_SALES_SOURCE = "https://hslstoragekarttatuotanto.blob.core.windows.net/map-server-legacy-data/727c6618a0814f8ba21bb00c9cb34019_0.geojson"
+
+const TICKET_SALES_SOURCE = "https://opendata.arcgis.com/datasets/79fe2db71b254edda68c47d2629a962e_0.geojson"
 
 const getTileIndex = (url, callback) => {
   request({
